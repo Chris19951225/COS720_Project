@@ -70,11 +70,13 @@ print('shape of the dataframe:', emails_df.shape)
 for col in emails_df.columns:
     print(col, emails_df[col].nunique())
 
+
 ######################################################################### This code is suppose to filter the sent folder (takes ages)
-#for i in range(emails_df.shape[0]):
- #   if "sent" in str(emails_df['file'][i]).lower():
-  #      emails_df.drop(emails_df.index[i])
-   #     print(i)
+
+for i in range(250000):
+    if "sent" in str(emails_df['file'][i]).lower():
+        emails_df.drop(emails_df.index[i])
+        print(i)
 
 emails_df = emails_df.set_index('Message-ID')\
     .drop(['file', 'X-Folder', 'Mime-Version', 'Content-Type', 'Content-Transfer-Encoding', 'X-cc', 'X-bcc', 'content',
@@ -93,4 +95,4 @@ print(emails_df['X-From'][0])
 
 ######################################################################### Write to a csv file
 print("########################################")
-emails_df.to_csv('/home/hristian/Documents/enron/CSV/filtered.csv', sep='\t')
+emails_df.to_pickle('/home/hristian/Documents/enron/CSV/filtered.pkl')
